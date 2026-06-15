@@ -1,0 +1,426 @@
+/* Overrides on top of codo-theme.css (i18n toggle + active nav from React scroll spy) */
+
+/* Custom cursor must sit above the region prefs modal (z-index 10050); otherwise cursor: none hides the OS cursor with nothing visible on top */
+.cursor {
+  z-index: 20050;
+}
+.cursor-ring {
+  z-index: 20049;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a.active {
+  color: var(--lime) !important;
+  font-weight: 700;
+}
+
+.visitor-prefs-trigger {
+  margin-inline-end: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.35);
+  cursor: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.visitor-prefs-trigger:hover,
+.visitor-prefs-trigger:focus {
+  border-color: var(--lime);
+  outline: none;
+  background: rgba(179, 255, 0, 0.06);
+}
+
+.visitor-prefs-flag-img {
+  display: block;
+  width: 28px;
+  height: auto;
+  max-height: 21px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.visitor-prefs-overlay {
+  position: fixed;
+  inset: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.visitor-prefs-dialog {
+  width: 100%;
+  max-width: 420px;
+  max-height: min(90vh, 640px);
+  overflow: auto;
+  padding: 24px;
+  margin: auto;
+  flex-shrink: 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: linear-gradient(165deg, #0f1418 0%, #0a0e12 100%);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.visitor-prefs-title {
+  margin: 0 0 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.visitor-prefs-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.visitor-prefs-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+.visitor-prefs-select {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
+  color: var(--white);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: none;
+  font-family: inherit;
+}
+
+.visitor-prefs-select:focus {
+  border-color: var(--lime);
+  outline: none;
+}
+
+.visitor-prefs-select option {
+  background: #0a0a0a;
+  color: var(--white);
+}
+
+.visitor-prefs-actions {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.visitor-prefs-actions-main {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.visitor-prefs-btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: none;
+  font-family: inherit;
+  border: 1px solid transparent;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.visitor-prefs-btn--primary {
+  background: var(--lime);
+  color: #000;
+  border-color: var(--lime);
+}
+
+.visitor-prefs-btn--primary:hover {
+  filter: brightness(1.05);
+}
+
+.visitor-prefs-btn--outline {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--white);
+}
+
+.visitor-prefs-btn--outline:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+.visitor-prefs-btn--ghost {
+  width: 100%;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.visitor-prefs-btn--ghost:hover {
+  color: var(--white);
+  border-color: var(--gray);
+}
+
+.form-submit.form-submit--sent {
+  background: #222 !important;
+  color: var(--lime) !important;
+}
+
+/* Portfolio: live site preview image (mShots) over gradient; icon only if image fails */
+.portfolio-thumb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.portfolio-thumb::after {
+  z-index: 2;
+}
+
+/* Mobile: hamburger opens slide-in menu (nav links hidden ≤900px) */
+.nav-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--white);
+  cursor: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
+}
+
+.nav-menu-btn:hover,
+.nav-menu-btn:focus-visible {
+  border-color: var(--lime);
+  color: var(--lime);
+  outline: none;
+  background: rgba(179, 255, 0, 0.06);
+}
+
+.ui-icon--nav-menu {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 900px) {
+  .nav-menu-btn {
+    display: inline-flex;
+  }
+}
+
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10100;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+html[dir='rtl'] .mobile-nav-overlay {
+  justify-content: flex-start;
+}
+
+.mobile-nav-panel {
+  width: min(100%, 380px);
+  height: 100%;
+  max-height: 100dvh;
+  overflow: auto;
+  background: linear-gradient(165deg, #0f1418 0%, #0a0e12 100%);
+  border-inline-start: 1px solid var(--border);
+  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.55);
+  padding: 20px 20px 32px;
+  box-sizing: border-box;
+  animation: mobileNavIn 0.28s ease-out;
+}
+
+html[dir='rtl'] .mobile-nav-panel {
+  border-inline-start: none;
+  border-inline-end: 1px solid var(--border);
+  box-shadow: 24px 0 60px rgba(0, 0, 0, 0.55);
+  animation-name: mobileNavInRtl;
+}
+
+@keyframes mobileNavIn {
+  from {
+    transform: translateX(16px);
+    opacity: 0.9;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes mobileNavInRtl {
+  from {
+    transform: translateX(-16px);
+    opacity: 0.9;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.mobile-nav-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-nav-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--white);
+}
+
+.mobile-nav-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--white);
+  cursor: none;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.mobile-nav-close:hover,
+.mobile-nav-close:focus-visible {
+  border-color: var(--lime);
+  color: var(--lime);
+  outline: none;
+}
+
+.ui-icon--mobile-nav {
+  width: 22px;
+  height: 22px;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 14px 16px;
+  border-radius: 10px;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+  cursor: none;
+}
+
+.mobile-nav-link:hover {
+  background: rgba(179, 255, 0, 0.06);
+  border-color: var(--border);
+  color: var(--lime);
+}
+
+/* Floating support → #contact (headset icon only) */
+.support-fab {
+  position: fixed;
+  z-index: 9990;
+  bottom: max(18px, env(safe-area-inset-bottom, 0px));
+  inset-inline-end: max(14px, env(safe-area-inset-inline-end, 14px));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--lime);
+  color: #000;
+  text-decoration: none;
+  box-shadow: 0 10px 36px var(--lime-glow-strong);
+  cursor: none;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s;
+}
+
+.support-fab:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 44px var(--lime-glow-strong);
+}
+
+.ui-icon--fab {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+/* Arabic: Cairo for the entire UI (overrides Poppins/Space Mono from theme + inline styles) */
+html[lang^='ar'] body,
+html[lang^='ar'] body *,
+html[lang^='ar'] body *::before,
+html[lang^='ar'] body *::after {
+  font-family: 'Cairo', sans-serif !important;
+}
