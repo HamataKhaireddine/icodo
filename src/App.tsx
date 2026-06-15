@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CodoIconSprite } from './components/CodoIconSprite'
 import { MobileNavMenu } from './components/MobileNavMenu'
 import { UiIcon } from './components/UiIcon'
+import { LanguageSwitcher } from './components/LanguageSwitcher'
 import { VisitorRegionButton } from './components/VisitorRegionControls'
 import { useVisitorLocale } from './context/VisitorLocaleContext'
 import { BUDGET_THRESHOLDS_QAR, PLAN_PRICES_QAR } from './constants/pricingBase'
@@ -23,17 +24,36 @@ function PortfolioThumb({
   }
 }) {
   const [imgFailed, setImgFailed] = useState(false)
+  const [shouldLoad, setShouldLoad] = useState(false)
+  const rootRef = useRef<HTMLDivElement>(null)
   const src = item.thumbUrl ?? portfolioPreviewImageUrl(item.href)
 
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setShouldLoad(true)
+          io.disconnect()
+        }
+      },
+      { rootMargin: '120px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   return (
-    <div className="portfolio-thumb" style={{ background: item.thumb }}>
-      {!imgFailed ? (
+    <div ref={rootRef} className="portfolio-thumb" style={{ background: item.thumb }}>
+      {shouldLoad && !imgFailed ? (
         <img
           src={src}
           alt=""
           className="portfolio-thumb-img"
           loading="lazy"
           decoding="async"
+          fetchPriority="low"
           onError={() => setImgFailed(true)}
         />
       ) : (
@@ -84,6 +104,7 @@ function App() {
   const goldRows = t('pricing.goldRows', { returnObjects: true }) as { ok: boolean; text: string }[]
   const platinumRows = t('pricing.platinumRows', { returnObjects: true }) as { ok: boolean; text: string }[]
   const serviceOptions = t('contact.services', { returnObjects: true }) as string[]
+  const phoneNumbers = t('contact.phoneNumbers', { returnObjects: true }) as { tel: string; display: string }[]
 
   const budgetOptions = useMemo(() => {
     const [a, b, c] = BUDGET_THRESHOLDS_QAR
@@ -132,7 +153,7 @@ function App() {
 
       <nav id="navbar">
         <a href="#hero" className="nav-logo">
-          <img className="logo-img" src="/codo-logo.png" alt="Codo" />
+          <img className="logo-img" src="/icodo-logo.png" alt="ICODo" />
         </a>
         <ul className="nav-links">
           <li>
@@ -152,19 +173,20 @@ function App() {
           </li>
         </ul>
         <div className="nav-right">
+          <LanguageSwitcher />
           <VisitorRegionButton />
           <a href="#contact" className="nav-cta">
             {t('nav.cta')}
           </a>
           <button
             type="button"
-            className="nav-menu-btn"
+            className={`nav-menu-btn${mobileNavOpen ? ' nav-menu-btn--open' : ''}`}
             aria-expanded={mobileNavOpen}
             aria-controls="codo-mobile-nav"
-            onClick={() => setMobileNavOpen(true)}
-            aria-label={t('nav.menuOpenAria')}
+            onClick={() => setMobileNavOpen((open) => !open)}
+            aria-label={mobileNavOpen ? t('nav.menuCloseAria') : t('nav.menuOpenAria')}
           >
-            <UiIcon id="icon-menu" className="ui-icon--nav-menu" />
+            <UiIcon id={mobileNavOpen ? 'icon-x' : 'icon-menu'} className="ui-icon--nav-menu" />
           </button>
         </div>
       </nav>
@@ -183,79 +205,74 @@ function App() {
       <section id="hero">
         <div className="hero-bg-grid" aria-hidden />
         <div className="hero-glow" aria-hidden />
-        <div className="hero-content">
-          <div className="hero-badge">{t('hero.badge')}</div>
-          <h1 className="hero-title">
-            {heroLines.map((line, li) => (
-              <span className="line" key={li}>
-                {line.map((seg, si) => {
-                  if (seg.t === 'space') return <span key={si}> </span>
-                  if (seg.t === 'accent') {
+        <div className="hero-layout">
+          <div className="hero-content">
+            <div className="hero-badge">{t('hero.badge')}</div>
+            <h1 className="hero-title">
+              {heroLines.map((line, li) => (
+                <span className="line" key={li}>
+                  {line.map((seg, si) => {
+                    if (seg.t === 'space') return <span key={si}> </span>
+                    if (seg.t === 'accent') {
+                      return (
+                        <span key={si} className="word" style={{ animationDelay: seg.delay }}>
+                          <span className="accent" data-text={seg.text}>
+                            {seg.text}
+                          </span>
+                        </span>
+                      )
+                    }
                     return (
                       <span key={si} className="word" style={{ animationDelay: seg.delay }}>
-                        <span className="accent" data-text={seg.text}>
-                          {seg.text}
-                        </span>
+                        {seg.text}
                       </span>
                     )
-                  }
-                  return (
-                    <span key={si} className="word" style={{ animationDelay: seg.delay }}>
-                      {seg.text}
-                    </span>
-                  )
-                })}
-              </span>
-            ))}
-          </h1>
-          <p className="hero-sub" dangerouslySetInnerHTML={{ __html: t('hero.sub') }} />
-          <div className="hero-actions">
-            <a href="#portfolio" className="btn-primary">
-              {t('hero.ctaPrimary')}{' '}
-              <UiIcon id="icon-arrow-up-right" className="ui-icon--inline-arrow" />
-            </a>
-            <a href="#pricing" className="btn-outline">
-              {t('hero.ctaSecondary')}
-            </a>
-          </div>
-          <div className="hero-stats">
-            <div className="stat">
-              <span className="stat-num" data-count="100">
-                100+
-              </span>
-              <span className="stat-label">{t('hero.statProjects')}</span>
+                  })}
+                </span>
+              ))}
+            </h1>
+            <p className="hero-sub" dangerouslySetInnerHTML={{ __html: t('hero.sub') }} />
+            <div className="hero-actions">
+              <a href="#portfolio" className="btn-primary">
+                {t('hero.ctaPrimary')}{' '}
+                <UiIcon id="icon-arrow-up-right" className="ui-icon--inline-arrow" />
+              </a>
+              <a href="#pricing" className="btn-outline">
+                {t('hero.ctaSecondary')}
+              </a>
             </div>
-            <div className="stat">
-              <span className="stat-num" data-count="50">
-                50+
-              </span>
-              <span className="stat-label">{t('hero.statClients')}</span>
-            </div>
-            <div className="stat">
-              <span className="stat-num" data-count="5">
-                5+
-              </span>
-              <span className="stat-label">{t('hero.statYears')}</span>
-            </div>
-            <div className="stat">
-              <span className="stat-num" data-count="15">
-                15+
-              </span>
-              <span className="stat-label">{t('hero.statServices')}</span>
+            <div className="hero-stats">
+              <div className="stat">
+                <span className="stat-num" data-count="100">
+                  100+
+                </span>
+                <span className="stat-label">{t('hero.statProjects')}</span>
+              </div>
+              <div className="stat">
+                <span className="stat-num" data-count="50">
+                  50+
+                </span>
+                <span className="stat-label">{t('hero.statClients')}</span>
+              </div>
+              <div className="stat">
+                <span className="stat-num" data-count="5">
+                  5+
+                </span>
+                <span className="stat-label">{t('hero.statYears')}</span>
+              </div>
+              <div className="stat">
+                <span className="stat-num" data-count="15">
+                  15+
+                </span>
+                <span className="stat-label">{t('hero.statServices')}</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="hero-banner-img reveal" style={{ position: 'relative', zIndex: 2, marginTop: 60, width: '100%', maxWidth: 780, marginLeft: 'auto', marginRight: 'auto' }}>
-          <div
-            style={{
-              borderRadius: 20,
-              overflow: 'hidden',
-              border: '1px solid var(--border)',
-              boxShadow: '0 30px 80px rgba(0,0,0,0.7), 0 0 60px var(--lime-glow)',
-            }}
-          >
-            <img src="/codo-logo.png" alt="" style={{ display: 'block', width: '100%', height: 'auto' }} />
+          <div className="hero-banner reveal">
+            <div className="hero-banner-frame">
+              <img src="/icodo-logo.png" alt="" />
+            </div>
           </div>
         </div>
       </section>
@@ -289,7 +306,7 @@ function App() {
               borderRadius: 20,
               overflow: 'hidden',
               border: '1px solid var(--border)',
-              boxShadow: '0 30px 80px rgba(0,0,0,0.6), 0 0 80px var(--lime-glow)',
+              boxShadow: 'var(--shadow-medium), 0 0 48px var(--lime-glow)',
               aspectRatio: '16 / 9',
               background: 'var(--card)',
             }}
@@ -299,14 +316,14 @@ function App() {
                 position: 'absolute',
                 top: 16,
                 left: 16,
-                background: 'rgba(0,0,0,0.7)',
+                background: 'rgba(255,255,255,0.92)',
                 backdropFilter: 'blur(10px)',
                 border: '1px solid var(--border)',
                 borderRadius: 100,
                 padding: '6px 16px',
                 fontSize: '0.72rem',
                 fontWeight: 700,
-                color: 'var(--lime)',
+                color: 'var(--primary)',
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 display: 'flex',
@@ -390,8 +407,8 @@ function App() {
                       a.wideStyle
                         ? {
                             gridColumn: 'span 2',
-                            background: 'rgba(179,255,0,0.04)',
-                            borderColor: 'rgba(179,255,0,0.15)',
+                            background: 'rgba(37, 99, 235, 0.06)',
+                            borderColor: 'rgba(56, 189, 248, 0.2)',
                           }
                         : undefined
                     }
@@ -644,13 +661,17 @@ function App() {
                     <div className="contact-channel-val">{t('contact.emailVal')}</div>
                   </div>
                 </a>
-                <a href="tel:+97430998660" className="contact-channel">
-                  <div className="contact-channel-icon">📞</div>
-                  <div>
-                    <div className="contact-channel-label">{t('contact.phoneLabel')}</div>
-                    <div className="contact-channel-val">{t('contact.phoneVal')}</div>
-                  </div>
-                </a>
+                {phoneNumbers.map((phone, i) => (
+                  <a key={phone.tel} href={`tel:${phone.tel}`} className="contact-channel">
+                    <div className="contact-channel-icon">📞</div>
+                    <div>
+                      {i === 0 ? (
+                        <div className="contact-channel-label">{t('contact.phoneLabel')}</div>
+                      ) : null}
+                      <div className="contact-channel-val">{phone.display}</div>
+                    </div>
+                  </a>
+                ))}
                 <a href="https://www.codo.qa" target="_blank" rel="noopener noreferrer" className="contact-channel">
                   <div className="contact-channel-icon">
                     <UiIcon id="icon-globe" />
@@ -719,7 +740,7 @@ function App() {
 
       <footer>
         <div className="footer-logo">
-          <img className="logo-img" src="/codo-logo.png" alt="Codo" />
+          <img className="logo-img" src="/icodo-logo.png" alt="ICODo" />
         </div>
         <div className="footer-copy">
           {t('footer.rights')} {t('footer.made')}

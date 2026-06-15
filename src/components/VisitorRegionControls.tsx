@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { CountryFlagMark } from './CountryFlagMark'
 import { CURRENCY_CHOICES } from '../constants/currencyChoices'
-import { LANGUAGE_CHOICES } from '../constants/languageChoices'
+import { BUNDLED_LANGUAGES } from './LanguageSwitcher'
 import { useVisitorLocale } from '../context/VisitorLocaleContext'
 import { ISO_3166_ALPHA2 } from '../data/iso3166Alpha2'
 
@@ -97,7 +97,7 @@ export function RegionPreferencesModal({ onClose }: { onClose: () => void }) {
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
             >
-              {LANGUAGE_CHOICES.map((code) => (
+              {BUNDLED_LANGUAGES.map((code) => (
                 <option key={code} value={code}>
                   {langNames.of(code) ?? code}
                 </option>

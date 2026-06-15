@@ -1,6 +1,5 @@
 /* Overrides on top of codo-theme.css (i18n toggle + active nav from React scroll spy) */
 
-/* Custom cursor must sit above the region prefs modal (z-index 10050); otherwise cursor: none hides the OS cursor with nothing visible on top */
 .cursor {
   z-index: 20050;
 }
@@ -14,7 +13,7 @@
 }
 
 .nav-links a.active {
-  color: var(--lime) !important;
+  color: var(--primary) !important;
   font-weight: 700;
 }
 
@@ -28,16 +27,17 @@
   padding: 0;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--surface);
   cursor: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 .visitor-prefs-trigger:hover,
 .visitor-prefs-trigger:focus {
-  border-color: var(--lime);
+  border-color: var(--primary);
   outline: none;
-  background: rgba(179, 255, 0, 0.06);
+  background: var(--surface-hover);
+  box-shadow: var(--shadow-soft);
 }
 
 .visitor-prefs-flag-img {
@@ -47,7 +47,7 @@
   max-height: 21px;
   object-fit: cover;
   border-radius: 3px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.08);
 }
 
 .visitor-prefs-overlay {
@@ -66,7 +66,7 @@
   justify-content: center;
   padding: 20px;
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(15, 23, 42, 0.35);
   backdrop-filter: blur(4px);
 }
 
@@ -80,8 +80,8 @@
   flex-shrink: 0;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: linear-gradient(165deg, #0f1418 0%, #0a0e12 100%);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+  background: var(--surface);
+  box-shadow: var(--shadow-strong);
 }
 
 .visitor-prefs-title {
@@ -89,7 +89,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text);
 }
 
 .visitor-prefs-fields {
@@ -108,9 +108,9 @@
 
 .visitor-prefs-select {
   width: 100%;
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--bg);
   border: 1px solid var(--border);
-  color: var(--white);
+  color: var(--text);
   padding: 10px 12px;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -119,13 +119,14 @@
 }
 
 .visitor-prefs-select:focus {
-  border-color: var(--lime);
+  border-color: var(--primary);
   outline: none;
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 .visitor-prefs-select option {
-  background: #0a0a0a;
-  color: var(--white);
+  background: var(--surface);
+  color: var(--text);
 }
 
 .visitor-prefs-actions {
@@ -154,9 +155,9 @@
 }
 
 .visitor-prefs-btn--primary {
-  background: var(--lime);
-  color: #000;
-  border-color: var(--lime);
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
 }
 
 .visitor-prefs-btn--primary:hover {
@@ -166,33 +167,32 @@
 .visitor-prefs-btn--outline {
   background: transparent;
   border-color: var(--border);
-  color: var(--white);
+  color: var(--text);
 }
 
 .visitor-prefs-btn--outline:hover {
-  border-color: var(--lime);
-  color: var(--lime);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .visitor-prefs-btn--ghost {
   width: 100%;
   background: transparent;
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: var(--border);
   color: var(--gray);
   font-weight: 500;
 }
 
 .visitor-prefs-btn--ghost:hover {
-  color: var(--white);
+  color: var(--text);
   border-color: var(--gray);
 }
 
 .form-submit.form-submit--sent {
-  background: #222 !important;
-  color: var(--lime) !important;
+  background: var(--card2) !important;
+  color: var(--primary) !important;
 }
 
-/* Portfolio: live site preview image (mShots) over gradient; icon only if image fails */
 .portfolio-thumb-img {
   position: absolute;
   inset: 0;
@@ -206,19 +206,19 @@
   z-index: 2;
 }
 
-/* Mobile: hamburger opens slide-in menu (nav links hidden ≤900px) */
 .nav-menu-btn {
   display: none;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   margin: 0;
   padding: 0;
   border-radius: 8px;
   border: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.35);
-  color: var(--white);
+  background: var(--surface);
+  color: var(--text);
   cursor: none;
   transition:
     border-color 0.2s,
@@ -228,10 +228,16 @@
 
 .nav-menu-btn:hover,
 .nav-menu-btn:focus-visible {
-  border-color: var(--lime);
-  color: var(--lime);
+  border-color: var(--primary);
+  color: var(--primary);
   outline: none;
-  background: rgba(179, 255, 0, 0.06);
+  background: var(--surface-hover);
+}
+
+.nav-menu-btn--open {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.08);
 }
 
 .ui-icon--nav-menu {
@@ -239,7 +245,7 @@
   height: 22px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .nav-menu-btn {
     display: inline-flex;
   }
@@ -249,56 +255,31 @@
   position: fixed;
   inset: 0;
   z-index: 10100;
-  background: rgba(0, 0, 0, 0.78);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: stretch;
-  justify-content: flex-end;
-  padding: 0;
-}
-
-html[dir='rtl'] .mobile-nav-overlay {
-  justify-content: flex-start;
+  background: var(--bg);
+  overflow: hidden;
 }
 
 .mobile-nav-panel {
-  width: min(100%, 380px);
+  width: 100%;
   height: 100%;
+  min-height: 100dvh;
   max-height: 100dvh;
   overflow: auto;
-  background: linear-gradient(165deg, #0f1418 0%, #0a0e12 100%);
-  border-inline-start: 1px solid var(--border);
-  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.55);
-  padding: 20px 20px 32px;
+  background: var(--bg);
+  padding: calc(var(--nav-height) + 12px) var(--site-gutter) max(32px, env(safe-area-inset-bottom));
   box-sizing: border-box;
-  animation: mobileNavIn 0.28s ease-out;
+  display: flex;
+  flex-direction: column;
+  animation: mobileNavDropIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html[dir='rtl'] .mobile-nav-panel {
-  border-inline-start: none;
-  border-inline-end: 1px solid var(--border);
-  box-shadow: 24px 0 60px rgba(0, 0, 0, 0.55);
-  animation-name: mobileNavInRtl;
-}
-
-@keyframes mobileNavIn {
+@keyframes mobileNavDropIn {
   from {
-    transform: translateX(16px);
-    opacity: 0.9;
+    transform: translateY(-100%);
+    opacity: 0.96;
   }
   to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes mobileNavInRtl {
-  from {
-    transform: translateX(-16px);
-    opacity: 0.9;
-  }
-  to {
-    transform: translateX(0);
+    transform: translateY(0);
     opacity: 1;
   }
 }
@@ -308,39 +289,42 @@ html[dir='rtl'] .mobile-nav-panel {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
 .mobile-nav-title {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
-  font-size: 1.05rem;
-  color: var(--white);
+  font-size: 1.15rem;
+  color: var(--text);
 }
 
 .mobile-nav-close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   border: 1px solid var(--border);
-  background: transparent;
-  color: var(--white);
+  background: var(--surface);
+  color: var(--text);
   cursor: none;
   transition:
     border-color 0.2s,
-    color 0.2s;
+    color 0.2s,
+    background 0.2s;
 }
 
 .mobile-nav-close:hover,
 .mobile-nav-close:focus-visible {
-  border-color: var(--lime);
-  color: var(--lime);
+  border-color: var(--primary);
+  color: var(--primary);
   outline: none;
+  background: var(--surface-hover);
 }
 
 .ui-icon--mobile-nav {
@@ -354,20 +338,22 @@ html[dir='rtl'] .mobile-nav-panel {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  flex: 1;
 }
 
 .mobile-nav-link {
   display: block;
-  padding: 14px 16px;
-  border-radius: 10px;
-  color: var(--white);
+  padding: 18px 20px;
+  border-radius: 12px;
+  color: var(--text);
   text-decoration: none;
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
+  background: var(--surface);
   transition:
     background 0.2s,
     border-color 0.2s,
@@ -376,12 +362,34 @@ html[dir='rtl'] .mobile-nav-panel {
 }
 
 .mobile-nav-link:hover {
-  background: rgba(179, 255, 0, 0.06);
-  border-color: var(--border);
-  color: var(--lime);
+  background: rgba(37, 99, 235, 0.08);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
-/* Floating support → #contact (headset icon only) */
+.mobile-nav-cta {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 24px;
+  padding: 16px 24px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: var(--on-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mobile-nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--lime-glow-strong);
+}
+
 .support-fab {
   position: fixed;
   z-index: 9990;
@@ -394,10 +402,10 @@ html[dir='rtl'] .mobile-nav-panel {
   height: 52px;
   padding: 0;
   border-radius: 50%;
-  background: var(--lime);
-  color: #000;
+  background: var(--primary);
+  color: var(--on-primary);
   text-decoration: none;
-  box-shadow: 0 10px 36px var(--lime-glow-strong);
+  box-shadow: 0 10px 36px var(--accent-glow-strong);
   cursor: none;
   transition:
     transform 0.2s,
@@ -408,7 +416,27 @@ html[dir='rtl'] .mobile-nav-panel {
 .support-fab:hover {
   filter: brightness(1.06);
   transform: translateY(-2px);
-  box-shadow: 0 14px 44px var(--lime-glow-strong);
+  box-shadow: 0 14px 44px var(--accent-glow-strong);
+}
+
+.mobile-nav-locale {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.mobile-nav-locale .lang-switcher {
+  margin-inline-end: 0;
+}
+
+.mobile-nav-locale .lang-switcher-trigger {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.mobile-nav-locale .lang-switcher-menu {
+  inset-inline: 0 auto;
+  width: 100%;
 }
 
 .ui-icon--fab {
@@ -417,7 +445,6 @@ html[dir='rtl'] .mobile-nav-panel {
   flex-shrink: 0;
 }
 
-/* Arabic: Cairo for the entire UI (overrides Poppins/Space Mono from theme + inline styles) */
 html[lang^='ar'] body,
 html[lang^='ar'] body *,
 html[lang^='ar'] body *::before,

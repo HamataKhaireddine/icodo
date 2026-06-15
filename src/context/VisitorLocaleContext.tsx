@@ -152,7 +152,11 @@ export function VisitorLocaleProvider({ children }: { children: ReactNode }) {
   const clearVisitorPreferences = useCallback(() => {
     setSavedPrefs(null)
     writePrefs(null)
-  }, [])
+    const lng = geo?.i18nLng ?? toI18nLanguageCode(intlLocale)
+    void i18n.changeLanguage(lng)
+    setDocumentLang(lng)
+    setNumberFormatLocale(lng)
+  }, [geo, intlLocale])
 
   const lastFxLoadAt = useRef(0)
 

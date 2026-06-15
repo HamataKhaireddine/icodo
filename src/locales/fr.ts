@@ -357,7 +357,10 @@ export const fr = {
     emailLabel: 'E-mail',
     emailVal: 'contact@codo.qa',
     phoneLabel: 'Téléphone / WhatsApp',
-    phoneVal: '+974 3099 8660',
+    phoneNumbers: [
+      { tel: '+97450364653', display: '+974 5036 4653' },
+      { tel: '+97430998660', display: '+974 3099 8660' },
+    ],
     webLabel: 'Site web',
     webVal: 'www.codo.qa',
     form: {

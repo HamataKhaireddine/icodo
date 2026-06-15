@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
+import { LanguageSwitcher } from './LanguageSwitcher'
 import { UiIcon } from './UiIcon'
 
 export type MobileNavLink = { href: string; label: string }
@@ -39,20 +40,13 @@ export function MobileNavMenu({
   if (!open) return null
 
   const panel = (
-    <div
-      className="mobile-nav-overlay"
-      role="presentation"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
-    >
+    <div className="mobile-nav-overlay" role="presentation">
       <div
         id={id}
         className="mobile-nav-panel"
         role="dialog"
         aria-modal="true"
         aria-label={t('nav.menuTitle')}
-        onClick={(e) => e.stopPropagation()}
       >
         <div className="mobile-nav-head">
           <span className="mobile-nav-title">{t('nav.menuTitle')}</span>
@@ -80,6 +74,18 @@ export function MobileNavMenu({
             </li>
           ))}
         </ul>
+        <a
+          href="#contact"
+          className="mobile-nav-cta"
+          onClick={() => {
+            onClose()
+          }}
+        >
+          {t('nav.cta')}
+        </a>
+        <div className="mobile-nav-locale">
+          <LanguageSwitcher />
+        </div>
       </div>
     </div>
   )
