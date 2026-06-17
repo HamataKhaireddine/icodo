@@ -1,4 +1,4 @@
-/** English (default) copy — aligned with codo_portfolio.html */
+/** English (default) copy — ICODo portfolio */
 
 export type HeroSeg =
   | { t: 'word'; text: string; delay: string }
@@ -26,11 +26,10 @@ export const en = {
   },
   nav: {
     services: 'Services',
-    solutions: 'Solutions',
-    portfolio: 'Portfolio',
-    pricing: 'Pricing',
+    caseStudies: 'Case studies',
+    about: 'About',
     contact: 'Contact',
-    cta: 'Get a Quote',
+    cta: "Let's talk",
     menuTitle: 'Menu',
     menuOpenAria: 'Open navigation menu',
     menuCloseAria: 'Close menu',
@@ -39,57 +38,33 @@ export const en = {
     aria: 'Contact support team',
   },
   hero: {
-    badge: 'Available for new projects',
-    lines: [
-      [
-        { t: 'word' as const, text: 'We', delay: '0.1s' },
-        { t: 'space' as const },
-        { t: 'accent' as const, text: 'Code.', delay: '0.2s' },
-      ],
-      [
-        { t: 'word' as const, text: 'We', delay: '0.3s' },
-        { t: 'space' as const },
-        { t: 'word' as const, text: 'Create.', delay: '0.4s' },
-      ],
-      [
-        { t: 'word' as const, text: 'We', delay: '0.5s' },
-        { t: 'space' as const },
-        { t: 'accent' as const, text: 'Solve.', delay: '0.6s' },
-      ],
-    ] as HeroSeg[][],
+    tag: 'Digital agency · Qatar',
+    headline: 'Software solutions for growing businesses.',
     sub:
-      'Full-stack digital solutions from <strong>web &amp; mobile development</strong> to complete <strong>POS ecosystems</strong>, social media marketing, graphic design, and beyond.',
-    ctaPrimary: 'View Our Work',
-    ctaSecondary: 'See Pricing',
-    statProjects: 'Projects Done',
-    statClients: 'Happy Clients',
-    statYears: 'Years Experience',
-    statServices: 'Services Offered',
+      'From web and mobile apps to complete POS ecosystems — we design, build, and ship digital products that help you scale with confidence.',
+    ctaPrimary: 'Start a project',
+    ctaSecondary: 'View work',
   },
-  marquee: [
-    'Web Development',
-    'Mobile Apps',
-    'POS Systems',
-    'Social Media Marketing',
-    'Graphic Design',
-    'Video Editing',
-    'E-Commerce',
-    'Custom Software',
-    'Shopify Integration',
-    'Inventory Systems',
-  ],
-  showreel: {
-    tag: 'Showreel',
-    title: 'See Codo',
-    titleAccent: 'In Action',
-    desc: 'A glimpse of how we bring ideas to life — from concept to finished product.',
-    live: 'Live Showreel',
+  clients: {
+    label: 'Trusted by teams across Qatar and beyond',
+    items: [
+      { name: 'ASSAM', icon: 'icon-bag' },
+      { name: 'MiniZoo', icon: 'icon-store' },
+      { name: 'MyJooti', icon: 'icon-cart' },
+      { name: 'MAAN', icon: 'icon-monitor' },
+      { name: 'Nehbah', icon: 'icon-target' },
+      { name: 'POS Suite', icon: 'icon-chart' },
+    ],
+  },
+  showcase: {
+    tag: 'Featured work',
+    title: 'Products we have shipped',
+    desc: 'A snapshot of recent launches — e-commerce, retail, games, and business platforms.',
   },
   services: {
-    tag: 'What We Do',
-    title: 'Services That',
-    titleAccent: 'Drive Results',
-    desc: 'From concept to deployment — we handle every layer of your digital presence.',
+    tag: 'Services',
+    title: 'What we can do for you',
+    desc: 'Strategy, design, and engineering — everything you need to launch and grow online.',
     items: [
       {
         icon: 'icon-globe',
@@ -123,64 +98,35 @@ export const en = {
       },
     ],
   },
-  pos: {
-    tag: 'Our Solutions',
-    title: 'Complete Business',
-    titleAccent: 'Ecosystems',
-    desc: "We've built end-to-end connected solutions — not just apps, but full operational platforms.",
-    suiteTag: 'POS & Inventory Suite',
-    suiteTitle1: 'One Platform.',
-    suiteTitle2: 'Everything Connected.',
-    suiteDesc:
-      'A fully integrated ecosystem — from the front counter to the kitchen to your warehouse — all synced in real time.',
-    features: [
+  tech: {
+    label: 'Technologies we work with',
+    items: ['React', 'Next.js', 'Node.js', 'TypeScript', 'Shopify', 'React Native', 'PostgreSQL', 'AWS'],
+  },
+  testimonials: {
+    items: [
       {
-        icon: 'icon-monitor',
-        title: 'POS System',
-        desc: 'Fast, intuitive point-of-sale with live inventory sync and reporting dashboard.',
+        quote:
+          'ICODo took our idea from sketch to a polished product in weeks. Clear communication, sharp design, and code we could actually maintain.',
+        name: 'Retail founder',
+        role: 'E-commerce client',
+        initials: 'RF',
       },
       {
-        icon: 'icon-package',
-        title: 'Inventory Management',
-        desc: 'Real-time stock tracking across all channels — in-store, online, and Shopify.',
-      },
-      {
-        icon: 'icon-chef',
-        title: 'Kitchen Display System',
-        desc: 'Orders flow directly to kitchen screens — no tickets, no errors, no delays.',
-      },
-      {
-        icon: 'icon-truck',
-        title: 'Rider / Delivery App',
-        desc: 'Live tracking, route optimization, and delivery status for your fleet.',
+        quote:
+          'The POS ecosystem they built connected our stores, kitchen, and online shop. Inventory finally makes sense across every channel.',
+        name: 'Operations lead',
+        role: 'Food & retail',
+        initials: 'OL',
       },
     ],
-    apps: [
-      {
-        icon: 'icon-store',
-        name: 'POS + Inventory Hub',
-        desc: 'Central command for your entire business operation',
-        featured: true,
-        span: 2 as const,
-      },
-      { icon: 'icon-utensils', name: 'Kitchen Display', desc: 'Real-time order management', featured: false, span: 1 as const },
-      { icon: 'icon-truck', name: 'Rider App', desc: 'GPS tracking & delivery mgmt', featured: false, span: 1 as const },
-      { icon: 'icon-bag', name: 'Shopify Sync', desc: 'Unified online + offline stock', featured: false, span: 1 as const },
-      {
-        icon: 'icon-chart',
-        name: 'Analytics & Reporting Dashboard',
-        desc: 'Revenue, inventory, orders — all in one view',
-        featured: false,
-        span: 2 as const,
-        wideStyle: true,
-      },
-    ],
+    cta: 'View case study',
   },
   portfolio: {
-    tag: 'Our Work',
-    title: 'Built With',
-    titleAccent: 'Purpose',
-    desc: "A selection of projects we're proud of — across industries, platforms, and challenges.",
+    tag: 'Portfolio',
+    title: 'What we have delivered',
+    desc: 'Selected projects across e-commerce, retail, AI, and custom business software.',
+    viewProject: 'View project',
+    visitSite: 'Live site',
     items: [
       {
         id: 'assam',
@@ -188,6 +134,8 @@ export const en = {
         tag: 'E‑Commerce',
         name: 'ASSAM',
         desc: 'Luxury fragrance e-commerce experience.',
+        year: '2025',
+        stack: ['React', 'Next.js', 'Shopify', 'Node.js'],
         thumb: 'linear-gradient(135deg,#1a0f14,#2e1825)',
         icon: 'icon-cart',
       },
@@ -197,6 +145,8 @@ export const en = {
         tag: 'Retail',
         name: 'MiniZoo',
         desc: 'Pet supplies store in Qatar.',
+        year: '2024',
+        stack: ['React', 'Shopify', 'POS'],
         thumb: 'linear-gradient(135deg,#0a1a16,#102e28)',
         icon: 'icon-store',
       },
@@ -206,6 +156,8 @@ export const en = {
         tag: 'Web Game',
         name: 'Nehbah',
         desc: 'Atmospheric trivia-style web game.',
+        year: '2024',
+        stack: ['React', 'TypeScript', 'Vercel'],
         thumb: 'linear-gradient(135deg,#140a1a,#22102e)',
         icon: 'icon-target',
       },
@@ -215,6 +167,8 @@ export const en = {
         tag: 'POS',
         name: 'POS System',
         desc: 'Pet store point-of-sale: inventory, sales, and checkout.',
+        year: '2025',
+        stack: ['React', 'Node.js', 'PostgreSQL'],
         thumb: 'linear-gradient(135deg,#0f1420,#1a2435)',
         icon: 'icon-cart',
       },
@@ -224,6 +178,8 @@ export const en = {
         tag: 'AI Product',
         name: 'MAAN',
         desc: 'AI-assisted facade and home exterior previews.',
+        year: '2025',
+        stack: ['React', 'AI', 'Node.js'],
         thumb: 'linear-gradient(135deg,#0a1418,#102428)',
         icon: 'icon-monitor',
       },
@@ -233,6 +189,8 @@ export const en = {
         tag: 'E‑Commerce',
         name: 'MyJooti',
         desc: 'Fashionable footwear from Europe — bilingual storefront.',
+        year: '2024',
+        stack: ['React', 'Shopify', 'i18n'],
         thumb: 'linear-gradient(135deg,#1a1210,#2e2218)',
         icon: 'icon-cart',
       },
@@ -304,38 +262,60 @@ export const en = {
       { ok: true, text: 'Weekly Strategy & Analytics Meeting' },
     ],
   },
-  why: {
-    tag: 'Why Choose Codo',
-    title1: 'Built Different.',
-    title2: 'By Design.',
-    items: [
+  team: {
+    tag: 'About',
+    title: 'Who we are',
+    desc: 'A small, senior team that partners with founders and operators to ship reliable digital products.',
+    members: [
       {
-        icon: 'icon-bolt',
-        title: 'Speed Without Compromise',
-        desc: "Fast delivery without cutting corners. We've built the systems and workflows to ship quality work quickly.",
+        name: 'ICODo Studio',
+        role: 'Design & Engineering',
+        bio: 'We combine product thinking, UI craft, and full-stack development to deliver end-to-end solutions for growing businesses.',
+        initials: 'IC',
       },
       {
-        icon: 'icon-link',
-        title: 'End-to-End Thinking',
-        desc: "We don't just build features — we build ecosystems. Every component works together seamlessly.",
-      },
-      {
-        icon: 'icon-target',
-        title: 'Results-Driven Approach',
-        desc: 'Every decision is tied to a business outcome. We measure success by your growth, not just deliverables.',
-      },
-      {
-        icon: 'icon-handshake',
-        title: 'Real Partnership',
-        desc: 'We become part of your team. Long-term relationships, transparent communication, zero BS.',
+        name: 'Delivery team',
+        role: 'Strategy & Support',
+        bio: 'From discovery workshops to launch and iteration — we stay close to your goals and communicate with clarity at every step.',
+        initials: 'DT',
       },
     ],
   },
+  blog: {
+    tag: 'Insights',
+    title: "What we've been writing about",
+    desc: 'Practical notes on building, launching, and scaling digital products.',
+    posts: [
+      {
+        title: 'Choosing the right stack for your first product launch',
+        excerpt: 'How we evaluate speed, maintainability, and cost when starting a new web or mobile project.',
+        date: 'Mar 2026',
+        category: 'Product',
+      },
+      {
+        title: 'Connecting POS, inventory, and e-commerce in one flow',
+        excerpt: 'Lessons from retail clients who needed real-time stock across stores and online channels.',
+        date: 'Feb 2026',
+        category: 'Retail',
+      },
+      {
+        title: 'Design systems that scale with your brand',
+        excerpt: 'Why consistent UI tokens and components save time as your marketing and product surfaces grow.',
+        date: 'Jan 2026',
+        category: 'Design',
+      },
+    ],
+  },
+  booking: {
+    tag: 'Contact',
+    title: 'Book a call today',
+    desc: 'Tell us about your project — we typically respond within one business day.',
+    emailAlt: "Don't want to wait? Send us an email.",
+  },
   contact: {
-    tag: 'Get In Touch',
-    title: "Let's Build Something",
-    titleAccent: 'Great',
-    desc: 'Ready to elevate your digital presence? Tell us what you need and we\'ll make it happen.',
+    tag: 'Get in touch',
+    title: "Let's build something great",
+    desc: 'Share your goals and timeline — we will follow up with next steps and a clear plan.',
     asideTitle: 'Have a project in mind?',
     asideBody:
       "Whether you're starting from scratch or need to level up what you have — we'd love to hear from you. Response within 24 hours.",
@@ -378,8 +358,12 @@ export const en = {
     budgetOpt3: '{{amount}}+',
   },
   footer: {
-    rights: '© 2025 Codo. All rights reserved.',
+    rights: '© 2026 ICODo. All rights reserved.',
     made: 'Made in Qatar 🇶🇦',
-    tagline: 'CODE. CREATE. SOLVE.',
+    tagline: 'Code. Create. Solve.',
+    social: {
+      email: 'Email',
+      web: 'Website',
+    },
   },
 }

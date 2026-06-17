@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 const CURSOR_HOVER =
-  'a, button, .service-card, .pos-feature, .pricing-card, .portfolio-card, .why-item, .pos-app-card, .contact-channel, input, select, textarea, .visitor-prefs-trigger, .visitor-prefs-btn, .nav-menu-btn, .mobile-nav-close, .mobile-nav-link, .support-fab, .lang-switcher-trigger, .lang-switcher-option'
+  'a, button, .service-card, .pricing-card, .project-card, .contact-channel, input, select, textarea, .visitor-prefs-trigger, .visitor-prefs-btn, .nav-menu-btn, .mobile-nav-close, .mobile-nav-link, .lang-switcher-trigger, .lang-switcher-option, .client-chip'
 
 function countUp(el: HTMLElement, target: number, suffix = '') {
   let start = 0
@@ -149,11 +149,10 @@ export function useCodoSiteEffects() {
     document.addEventListener('click', onAnchorClick)
 
     const syncNavPadding = () => {
-      const scrolled = window.scrollY > 50
-      const v = scrolled ? 12 : 16
-      navbar.style.paddingBlock = `${v}px`
-      navbar.style.paddingInline = getComputedStyle(document.documentElement).getPropertyValue('--site-gutter').trim() || '60px'
-      document.documentElement.style.setProperty('--nav-height', `${navbar.offsetHeight}px`)
+      const scrolled = window.scrollY > 40
+      navbar.style.paddingTop = scrolled ? '12px' : '20px'
+      navbar.style.paddingInline = getComputedStyle(document.documentElement).getPropertyValue('--site-gutter').trim() || '48px'
+      document.documentElement.style.setProperty('--nav-height', `${navbar.offsetHeight + 12}px`)
     }
 
     const updateActiveNav = () => {
