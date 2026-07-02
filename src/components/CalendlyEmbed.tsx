@@ -1,7 +1,7 @@
 const CALENDLY_URL = 'https://calendly.com/ahmadhassankhan701/30min'
 
 export function CalendlyEmbed({ label }: { label?: string }) {
-  const src = `${CALENDLY_URL}?hide_gesture=modals&hide_landing_page_details=1&primary_color=fcba27`
+  const src = `${CALENDLY_URL}?hide_gesture=modals&hide_landing_page_details=1&primary_color=2563eb`
 
   return (
     <div className="calendly-embed">

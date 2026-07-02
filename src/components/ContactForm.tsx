@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { submitContactForm } from '../lib/submitContactForm'
 
@@ -35,7 +36,7 @@ export function ContactForm({ className = '' }: { className?: string }) {
       })
       setSent(true)
       form.reset()
-      window.setTimeout(() => setSent(false), 5000)
+      window.setTimeout(() => setSent(false), 8000)
     } catch (err) {
       setError(err instanceof Error ? err.message : t('contact.form.error'))
     } finally {
@@ -45,6 +46,13 @@ export function ContactForm({ className = '' }: { className?: string }) {
 
   return (
     <form className={`contact-form ${className}`.trim()} onSubmit={onSubmit}>
+      {sent ? (
+        <div className="contact-form__success" role="status">
+          <strong>{t('contact.form.sentTitle')}</strong>
+          <p>{t('contact.form.sentBody')}</p>
+        </div>
+      ) : null}
+
       <div className="contact-form__row">
         <label className="contact-form__field">
           <span>{t('contact.form.name')}</span>
@@ -103,9 +111,13 @@ export function ContactForm({ className = '' }: { className?: string }) {
           <a href={`mailto:${t('contact.emailVal')}`}>{t('contact.emailVal')}</a>
         </p>
       ) : null}
-      <button type="submit" className="btn btn--primary btn--lg" disabled={loading}>
+      <button type="submit" className="btn btn--primary btn--lg" disabled={loading || sent}>
         {submitLabel}
       </button>
+      <p className="contact-form__privacy">
+        {t('contact.form.privacy')}{' '}
+        <Link to="/privacy">{t('footer.links.privacy')}</Link>
+      </p>
     </form>
   )
 }

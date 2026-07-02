@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useVisitorLocale } from '../context/VisitorLocaleContext'
+import { setLangParam } from '../lib/langUrl'
+import { BUNDLED_LANGUAGES, type BundledLanguage } from '../constants/bundledLanguages'
 
-/** Languages with full UI translations bundled in the app. */
-export const BUNDLED_LANGUAGES = ['en', 'ar', 'fr', 'ja'] as const
-export type BundledLanguage = (typeof BUNDLED_LANGUAGES)[number]
+export { BUNDLED_LANGUAGES, type BundledLanguage }
 
 export function LanguageSwitcher() {
   const { t, i18n } = useTranslation()
@@ -42,10 +42,12 @@ export function LanguageSwitcher() {
 
   const selectLanguage = (code: BundledLanguage | 'auto') => {
     if (code === 'auto') {
+      setLangParam(null)
       clearVisitorPreferences()
       setOpen(false)
       return
     }
+    setLangParam(code)
     applyVisitorPreferences({
       countryCode: savedPrefs?.countryCode ?? effectiveCountryCode,
       language: code,

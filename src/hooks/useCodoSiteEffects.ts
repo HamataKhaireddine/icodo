@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
+import i18n from '../i18n'
 
 function observeReveals() {
   const io = new IntersectionObserver(
@@ -25,6 +26,17 @@ function observeReveals() {
   })
 
   return io
+}
+
+export function refreshReveals() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach((node) => {
+    const el = node as HTMLElement
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+      el.classList.add('visible')
+    }
+  })
+  return observeReveals()
 }
 
 function countUp(el: HTMLElement, target: number) {
@@ -62,6 +74,19 @@ export function useCodoSiteEffects() {
       revealIoRef.current = null
     }
   }, [location.pathname])
+
+  useEffect(() => {
+    const onLanguageChanged = () => {
+      revealIoRef.current?.disconnect()
+      requestAnimationFrame(() => {
+        revealIoRef.current = refreshReveals()
+      })
+    }
+    i18n.on('languageChanged', onLanguageChanged)
+    return () => {
+      i18n.off('languageChanged', onLanguageChanged)
+    }
+  }, [])
 
   useEffect(() => {
     const navbar = document.getElementById('navbar')

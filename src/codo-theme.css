@@ -278,6 +278,12 @@ body.no-custom-cursor .cursor-ring {
   gap: 6px;
 }
 
+@media (min-width: 1101px) {
+  .nav-utilities {
+    display: flex;
+  }
+}
+
 .nav-cta {
   display: inline-flex;
   align-items: center;

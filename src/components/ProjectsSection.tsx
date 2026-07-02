@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { projects } from '../data/projects'
-import { UiIcon } from './UiIcon'
+import { ProjectThumb } from './ProjectThumb'
 
 export function ProjectsSection() {
   const { t } = useTranslation()
@@ -17,9 +17,13 @@ export function ProjectsSection() {
           {projects.map((project, i) => {
             const inner = (
               <>
-                <div className="projects-grid__thumb" style={{ background: project.thumb }}>
-                  <UiIcon id={project.icon} className="projects-grid__icon" />
-                </div>
+                <ProjectThumb
+                  href={project.href}
+                  thumb={project.thumb}
+                  thumbUrl={project.thumbUrl}
+                  icon={project.icon}
+                  alt={project.name}
+                />
                 <div className="projects-grid__body">
                   <div className="projects-grid__meta">
                     <span className="projects-grid__tag">{project.tag}</span>
@@ -45,18 +49,15 @@ export function ProjectsSection() {
                 {inner}
               </a>
             ) : (
-              <article key={project.id} className={`projects-grid__card projects-grid__card--static reveal reveal-delay-${(i % 3) + 1}`}>
+              <article
+                key={project.id}
+                className={`projects-grid__card projects-grid__card--static reveal reveal-delay-${(i % 3) + 1}`}
+              >
                 {inner}
               </article>
             )
           })}
         </div>
-        <p className="projects-grid__more reveal">
-          {t('projects.more')}{' '}
-          <a href="https://ahk-portfolio.vercel.app/portfolio" target="_blank" rel="noopener noreferrer">
-            {t('projects.portfolioLink')}
-          </a>
-        </p>
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 /**
- * Live site preview image (WordPress mShots). Falls back to icon in UI on error.
- * Optional `thumbUrl` on an item overrides this (e.g. `/portfolio/assam.jpg`).
+ * Live site preview image. Prefer `thumbUrl` on project/case-study items
+ * (local cover in /public/portfolio/) — WordPress mShots often returns 403.
  */
 export function portfolioPreviewImageUrl(siteUrl: string, width = 800): string {
   const u = siteUrl.trim()

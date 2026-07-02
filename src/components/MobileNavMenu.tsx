@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
@@ -74,15 +75,9 @@ export function MobileNavMenu({
             </li>
           ))}
         </ul>
-        <a
-          href="#contact"
-          className="mobile-nav-cta"
-          onClick={() => {
-            onClose()
-          }}
-        >
+        <Link to="/contact" className="mobile-nav-cta" onClick={onClose}>
           {t('nav.cta')}
-        </a>
+        </Link>
         <div className="mobile-nav-locale">
           <LanguageSwitcher />
         </div>

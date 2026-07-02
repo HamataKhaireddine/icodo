@@ -52,13 +52,16 @@ export const en = {
   },
   hero: {
     eyebrow: 'Digital Product Development & AI Solutions',
-    title: 'We Build Digital Products That Help Businesses Scale',
+    titleBefore: 'We Build',
+    titleAccent: 'Digital Products',
+    titleAfter: 'That Help Businesses Scale',
     sub: 'ICODO partners with founders, CEOs, and technology leaders to design, build, and launch custom software, SaaS platforms, AI automation, and enterprise systems — with architecture built for growth.',
     ctaPrimary: 'Book a Consultation',
     ctaSecondary: 'View Case Studies',
     trustResponse: 'Response within 24 hours',
     trustProjects: '50+ projects delivered',
     trustExperience: '8+ years building products',
+    clientsLabel: 'Trusted by ambitious teams',
     pillars: ['Custom Software', 'AI & Automation', 'SaaS Platforms', 'Mobile & Enterprise'],
   },
   stats: {
@@ -130,6 +133,62 @@ export const en = {
       { num: '06', title: 'Deployment', desc: 'Production launch, monitoring, and handoff documentation.' },
       { num: '07', title: 'Support', desc: 'Ongoing partnership, enhancements, and long-term evolution.' },
     ],
+    homeSteps: [
+      { num: '01', title: 'Discover & plan', desc: 'Goals, scope, architecture, and a delivery roadmap.' },
+      { num: '02', title: 'Design', desc: 'UX flows and UI validated with your stakeholders.' },
+      { num: '03', title: 'Build & test', desc: 'Iterative development with demos and quality gates.' },
+      { num: '04', title: 'Launch & support', desc: 'Production deployment, handoff, and ongoing partnership.' },
+    ],
+    seeFull: 'See full process on About →',
+  },
+  engagement: {
+    tag: 'Engagement',
+    title: 'How teams work with ICODO',
+    desc: 'Clear engagement models — from a focused discovery sprint to full product builds and long-term scale partnerships.',
+    popular: 'Most common',
+    cta: 'Discuss your project',
+    footnote: 'Final quotes depend on scope and timeline. Minimum engagement typically starts at $5,000.',
+    items: [
+      {
+        title: 'Discovery Sprint',
+        range: 'From $8,000',
+        duration: '2 weeks',
+        desc: 'Validate your idea, define scope, and leave with a roadmap you can execute — with or without us.',
+        includes: [
+          'Stakeholder workshops',
+          'Technical feasibility review',
+          'UX wireframes for core flows',
+          'Architecture recommendation',
+          'Fixed-scope proposal for build',
+        ],
+      },
+      {
+        title: 'MVP Build',
+        range: '$50,000 – $120,000',
+        duration: '12–20 weeks',
+        desc: 'End-to-end design and engineering to launch a production-ready product your users and investors can evaluate.',
+        includes: [
+          'Product design system',
+          'Full-stack development',
+          'Weekly demos & Slack access',
+          'QA and deployment',
+          '30-day post-launch support',
+        ],
+      },
+      {
+        title: 'Scale Partnership',
+        range: 'From $25,000 / mo',
+        duration: 'Ongoing',
+        desc: 'A dedicated senior team embedded with yours — shipping features, maintaining quality, and evolving the platform.',
+        includes: [
+          'Dedicated engineers & PM',
+          'Roadmap planning',
+          'Performance & security reviews',
+          'Priority support',
+          'Flexible monthly scope',
+        ],
+      },
+    ],
   },
   why: {
     tag: 'Why ICODO',
@@ -155,6 +214,7 @@ export const en = {
     features: 'Key features',
     stack: 'Technology',
     impact: 'Business impact',
+    results: 'Key results',
     timeline: 'Timeline',
     cta: 'Start a similar project',
     liveSite: 'Visit live product',
@@ -181,38 +241,6 @@ export const en = {
   testimonials: {
     tag: 'Client voices',
     title: 'Trusted by founders and operators',
-    items: [
-      {
-        quote:
-          'Working with ICODO was one of the best decisions we made for our product. Their team quickly understood our business requirements, proposed valuable improvements, and delivered a modern, scalable platform that exceeded our expectations. Communication was excellent throughout the project, and they consistently met every milestone.',
-        name: 'Michael Carter',
-        role: 'Founder & CEO',
-        company: 'NovaTech Solutions',
-        companyUrl: 'https://www.novatechsolutions.com',
-        linkedIn: 'https://www.linkedin.com/in/michaelcarter',
-        initials: 'MC',
-      },
-      {
-        quote:
-          "ICODO didn't just build an application—they became a trusted technology partner. Their attention to detail, clean development practices, and proactive communication made the entire process seamless. We've continued working with them long after launch because of the quality they consistently deliver.",
-        name: 'Sarah Mitchell',
-        role: 'Operations Director',
-        company: 'Elevate Commerce',
-        companyUrl: 'https://www.elevatecommerce.co',
-        linkedIn: 'https://www.linkedin.com/in/sarahmitchell',
-        initials: 'SM',
-      },
-      {
-        quote:
-          'From planning to deployment, the ICODO team demonstrated exceptional professionalism and technical expertise. They transformed our ideas into a high-performing digital product while always keeping our business goals in focus. We highly recommend them to any company looking for a reliable software development partner.',
-        name: 'Daniel Thompson',
-        role: 'Managing Director',
-        company: 'Vertex Innovations',
-        companyUrl: 'https://www.vertexinnovations.io',
-        linkedIn: 'https://www.linkedin.com/in/danielthompson',
-        initials: 'DT',
-      },
-    ],
   },
   projects: {
     tag: 'Portfolio',
@@ -324,8 +352,8 @@ export const en = {
   },
   team: {
     tag: 'Leadership',
-    title: 'Meet the founder',
-    desc: 'ICODO is led by engineers who stay hands-on from architecture through launch — no handoffs to anonymous offshore teams.',
+    title: 'Meet the team behind ICODO',
+    desc: 'Two co-founders who stay hands-on from architecture through launch — no anonymous offshore handoffs, no account-manager layers.',
     members: [],
   },
   aboutPage: {
@@ -399,7 +427,10 @@ export const en = {
       submit: 'Send inquiry',
       sending: 'Sending…',
       sent: '✓ Inquiry received — we will be in touch soon.',
+      sentTitle: 'Thank you — we received your inquiry.',
+      sentBody: 'A member of our team will respond within one business day.',
       error: 'Could not send your inquiry.',
+      privacy: 'By submitting, you agree to our',
     },
     services: [
       'Custom Software Development',
@@ -477,6 +508,7 @@ export const en = {
       email: 'Email',
       web: 'Website',
       linkedin: 'LinkedIn',
+      github: 'GitHub',
     },
   },
 }

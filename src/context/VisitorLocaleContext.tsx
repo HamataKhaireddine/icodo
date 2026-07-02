@@ -14,6 +14,8 @@ import { toI18nLanguageCode } from '../lib/i18nBundled'
 import { resolveDisplayCurrency } from '../lib/displayCurrency'
 import { convertQarTo, fetchQarFxSnapshot, type QarFxSnapshot, type QarRates } from '../lib/qarExchangeRates'
 import { fetchVisitorGeo, type VisitorGeo } from '../lib/visitorGeo'
+import { parseLangParam, setLangParam } from '../lib/langUrl'
+import { BUNDLED_LANGUAGES, type BundledLanguage } from '../constants/bundledLanguages'
 
 const STORAGE_PREFS = 'codo-visitor-prefs'
 const STORAGE_LANG_MODE = 'codo-lang-mode'
@@ -152,6 +154,7 @@ export function VisitorLocaleProvider({ children }: { children: ReactNode }) {
   const clearVisitorPreferences = useCallback(() => {
     setSavedPrefs(null)
     writePrefs(null)
+    setLangParam(null)
     const lng = geo?.i18nLng ?? toI18nLanguageCode(intlLocale)
     void i18n.changeLanguage(lng)
     setDocumentLang(lng)
@@ -200,11 +203,17 @@ export function VisitorLocaleProvider({ children }: { children: ReactNode }) {
     if (savedPrefs) {
       void i18n.changeLanguage(savedPrefs.language)
       setDocumentLang(savedPrefs.language)
+      if ((BUNDLED_LANGUAGES as readonly string[]).includes(savedPrefs.language)) {
+        setLangParam(savedPrefs.language as BundledLanguage)
+      }
       return
     }
-    const lng = detectedI18nLng
+    const urlLang =
+      typeof window !== 'undefined' ? parseLangParam(window.location.search) : null
+    const lng = urlLang ?? detectedI18nLng
     void i18n.changeLanguage(lng)
     setDocumentLang(lng)
+    if (urlLang) setLangParam(urlLang)
   }, [ready, savedPrefs, detectedI18nLng])
 
   const formatMoneyFromQar = useCallback(

@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { getCaseStudy } from '../data/caseStudies'
+import { ProjectThumb } from '../components/ProjectThumb'
 import { SeoHead } from '../components/SeoHead'
 import { SiteFooter } from '../components/SiteLayout'
 
@@ -29,7 +30,25 @@ export default function CaseStudyDetailPage() {
           </div>
           <h1 className="cs-detail__title reveal">{study.title}</h1>
           <p className="cs-detail__tagline reveal">{study.tagline}</p>
-          <div className="cs-detail__thumb reveal" style={{ background: study.thumb }} aria-hidden />
+          {study.metrics.length > 0 ? (
+            <div className="cs-detail__metrics reveal">
+              {study.metrics.map((m) => (
+                <div key={m.label} className="cs-detail__metric">
+                  <div className="cs-detail__metric-value">{m.value}</div>
+                  <div className="cs-detail__metric-label">{m.label}</div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <div className="cs-detail__thumb reveal">
+            <ProjectThumb
+              href={study.href}
+              thumb={study.thumb}
+              thumbUrl={study.thumbUrl}
+              icon={study.icon}
+              alt={study.title}
+            />
+          </div>
         </div>
       </header>
 

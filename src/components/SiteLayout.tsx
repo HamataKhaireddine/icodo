@@ -6,6 +6,8 @@ import { MobileNavMenu } from './MobileNavMenu'
 import { UiIcon } from './UiIcon'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { VisitorRegionButton } from './VisitorRegionControls'
+import { BrandLogo } from './BrandLogo'
+import { StickyCta } from './StickyCta'
 import { useCodoSiteEffects } from '../hooks/useCodoSiteEffects'
 import { setDocumentLang } from '../i18n'
 import i18n from '../i18n'
@@ -24,6 +26,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const mobileNavLinks = useMemo(
     () => [
       { href: sectionHref('services'), label: t('nav.services') },
+      { href: sectionHref('engagement'), label: t('engagement.tag') },
       { href: sectionHref('process'), label: t('nav.process') },
       { href: sectionHref('case-studies'), label: t('nav.caseStudies') },
       { href: '/about', label: t('nav.about') },
@@ -52,11 +55,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <header id="navbar" className="nav-shell">
         <div className="nav-pill">
           <Link to="/" className="nav-logo" aria-label="ICODO home">
-            <img className="logo-img" src="/icodo-logo.png" alt="ICODO" />
+            <BrandLogo />
           </Link>
           <ul className="nav-links">
             <li>
               <a href={sectionHref('services')}>{t('nav.services')}</a>
+            </li>
+            <li>
+              <a href={sectionHref('engagement')}>{t('engagement.tag')}</a>
             </li>
             <li>
               <a href={sectionHref('process')}>{t('nav.process')}</a>
@@ -110,6 +116,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       />
 
       <main>{children}</main>
+      <StickyCta />
     </>
   )
 }
@@ -121,10 +128,19 @@ export function SiteFooter() {
     <footer className="footer-premium">
       <div className="footer-premium__grid">
         <div className="footer-premium__brand">
-          <Link to="/">
-            <img className="logo-img" src="/icodo-logo.png" alt="ICODO" style={{ filter: 'brightness(0) invert(1)' }} />
+          <Link to="/" className="footer-premium__logo">
+            <BrandLogo light />
           </Link>
           <p>{t('footer.tagline')}</p>
+          <div className="footer-premium__social">
+            <a href="https://www.linkedin.com/in/ahmad-hassan-62a65a240/" target="_blank" rel="noopener noreferrer">
+              {t('footer.social.linkedin')}
+            </a>
+            <a href="https://github.com/ahmadhassankhan701" target="_blank" rel="noopener noreferrer">
+              {t('footer.social.github')}
+            </a>
+            <a href={`mailto:${t('contact.emailVal')}`}>{t('footer.social.email')}</a>
+          </div>
         </div>
         <div className="footer-premium__col">
           <h4>{t('footer.columns.company')}</h4>

@@ -16,11 +16,20 @@ export async function submitContactForm(payload: ContactPayload): Promise<void> 
     )
   }
 
+  const body = JSON.stringify({
+    name: payload.name.trim(),
+    email: payload.email.trim(),
+    company: payload.company.trim(),
+    service: payload.service.trim(),
+    budget: payload.budget.trim(),
+    message: payload.message.trim(),
+  })
+
   const res = await fetch(url, {
     method: 'POST',
     mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body,
   })
 
   // no-cors returns opaque response; treat as success if no network throw
