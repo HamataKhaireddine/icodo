@@ -1,16 +1,43 @@
 import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 
-const CURSOR_HOVER =
-  'a, button, .service-card, .pricing-card, .project-card, .contact-channel, input, select, textarea, .visitor-prefs-trigger, .visitor-prefs-btn, .nav-menu-btn, .mobile-nav-close, .mobile-nav-link, .lang-switcher-trigger, .lang-switcher-option, .client-chip'
+function observeReveals() {
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible')
+          io.unobserve(e.target)
+        }
+      })
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
+  )
 
-function countUp(el: HTMLElement, target: number, suffix = '') {
+  document.querySelectorAll('.reveal:not(.visible)').forEach((node) => {
+    const el = node as HTMLElement
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+      el.classList.add('visible')
+      return
+    }
+    io.observe(node)
+  })
+
+  return io
+}
+
+function countUp(el: HTMLElement, target: number) {
+  if (prefersReducedMotion()) {
+    el.textContent = String(target)
+    return
+  }
   let start = 0
-  const dur = 2000
-  const step = Math.max(8, dur / target)
+  const dur = 1600
+  const step = Math.max(12, dur / target)
   const timer = window.setInterval(() => {
     start += 1
-    const suf = suffix || (target >= 100 ? '+' : target >= 5 ? '+' : '')
-    el.textContent = String(start) + suf
+    el.textContent = String(start)
     if (start >= target) window.clearInterval(timer)
   }, step)
 }
@@ -19,106 +46,36 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-function shouldUseCustomCursor() {
-  if (prefersReducedMotion()) return false
-  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return false
-  return true
-}
-
 export function useCodoSiteEffects() {
-  const ringRaf = useRef<number>(0)
+  const location = useLocation()
+  const revealIoRef = useRef<IntersectionObserver | null>(null)
 
   useEffect(() => {
-    const cursor = document.getElementById('cursor')
-    const cursorRing = document.getElementById('cursorRing')
+    window.scrollTo(0, 0)
+    revealIoRef.current?.disconnect()
+    const frame = requestAnimationFrame(() => {
+      revealIoRef.current = observeReveals()
+    })
+    return () => {
+      cancelAnimationFrame(frame)
+      revealIoRef.current?.disconnect()
+      revealIoRef.current = null
+    }
+  }, [location.pathname])
+
+  useEffect(() => {
     const navbar = document.getElementById('navbar')
-    if (!cursor || !cursorRing || !navbar) return
+    if (!navbar) return
 
-    const useCustomCursor = shouldUseCustomCursor()
-    document.body.classList.toggle('no-custom-cursor', !useCustomCursor)
-
-    let mx = -100
-    let my = -100
-    let rx = -100
-    let ry = -100
-    let ringActive = false
     let scrollTick = 0
     let lastScrollY = window.scrollY
-
-    const setCursorPos = (x: number, y: number) => {
-      cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
-    }
-
-    const onMove = (e: MouseEvent) => {
-      if (!useCustomCursor) return
-      mx = e.clientX
-      my = e.clientY
-      setCursorPos(mx, my)
-      if (!ringActive) {
-        ringActive = true
-        ringRaf.current = requestAnimationFrame(animRing)
-      }
-    }
-
-    const animRing = () => {
-      const dx = mx - rx
-      const dy = my - ry
-      rx += dx * 0.38
-      ry += dy * 0.38
-      cursorRing.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`
-
-      if (Math.abs(dx) < 0.4 && Math.abs(dy) < 0.4) {
-        ringActive = false
-        return
-      }
-      ringRaf.current = requestAnimationFrame(animRing)
-    }
-
-    const enlarge = () => {
-      cursor.style.width = '18px'
-      cursor.style.height = '18px'
-      cursorRing.style.width = '52px'
-      cursorRing.style.height = '52px'
-      cursorRing.style.opacity = '0.75'
-    }
-    const shrink = () => {
-      cursor.style.width = '12px'
-      cursor.style.height = '12px'
-      cursorRing.style.width = '40px'
-      cursorRing.style.height = '40px'
-      cursorRing.style.opacity = '0.55'
-    }
-
-    if (useCustomCursor) {
-      document.addEventListener('mousemove', onMove, { passive: true })
-    }
-
-    const hoverEls = document.querySelectorAll<HTMLElement>(CURSOR_HOVER)
-    if (useCustomCursor) {
-      hoverEls.forEach((el) => {
-        el.addEventListener('mouseenter', enlarge)
-        el.addEventListener('mouseleave', shrink)
-      })
-    }
-
-    const reveals = document.querySelectorAll('.reveal')
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible')
-            io.unobserve(e.target)
-          }
-        })
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
-    )
-    reveals.forEach((r) => io.observe(r))
+    let statsAnimated = false
 
     const statsObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (!e.isIntersecting) return
+          if (!e.isIntersecting || statsAnimated) return
+          statsAnimated = true
           document.querySelectorAll<HTMLElement>('.stat-num').forEach((el) => {
             const count = parseInt(el.dataset.count ?? '0', 10)
             if (!Number.isFinite(count) || count <= 0) return
@@ -128,17 +85,30 @@ export function useCodoSiteEffects() {
           statsObserver.disconnect()
         })
       },
-      { threshold: 0.5 },
+      { threshold: 0.4 },
     )
-    const heroStats = document.querySelector('.hero-stats')
-    if (heroStats) statsObserver.observe(heroStats)
+    const statsBar = document.querySelector('.stats-bar')
+    if (statsBar) statsObserver.observe(statsBar)
 
     const onAnchorClick = (ev: MouseEvent) => {
       const t = ev.target as HTMLElement | null
-      const link = t?.closest?.('a[href^="#"]') as HTMLAnchorElement | null
+      const link = t?.closest?.('a[href^="#"], a[href^="/#"]') as HTMLAnchorElement | null
       if (!link) return
       const href = link.getAttribute('href')
       if (!href || href === '#') return
+
+      if (href.startsWith('/#')) {
+        const id = href.slice(2)
+        if (window.location.pathname !== '/') return
+        const target = document.getElementById(id)
+        if (!target) return
+        ev.preventDefault()
+        const navH = navbar.offsetHeight
+        const top = target.getBoundingClientRect().top + window.scrollY - navH - 8
+        window.scrollTo({ top, behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
+        return
+      }
+
       const target = document.querySelector(href)
       if (!target) return
       ev.preventDefault()
@@ -148,24 +118,24 @@ export function useCodoSiteEffects() {
     }
     document.addEventListener('click', onAnchorClick)
 
-    const syncNavPadding = () => {
-      const scrolled = window.scrollY > 40
-      navbar.style.paddingTop = scrolled ? '12px' : '20px'
-      navbar.style.paddingInline = getComputedStyle(document.documentElement).getPropertyValue('--site-gutter').trim() || '48px'
-      document.documentElement.style.setProperty('--nav-height', `${navbar.offsetHeight + 12}px`)
+    const syncNav = () => {
+      const scrolled = window.scrollY > 24
+      navbar.classList.toggle('nav-shell--glass', scrolled)
+      navbar.style.paddingTop = scrolled ? '12px' : '16px'
+      document.documentElement.style.setProperty('--nav-height', `${navbar.offsetHeight + 8}px`)
     }
 
     const updateActiveNav = () => {
+      if (location.pathname !== '/') return
       const navH = navbar.offsetHeight + 20
-      const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-links a')
+      const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-links a[href^="#"]')
       let current = ''
       document.querySelectorAll('section[id]').forEach((sec) => {
         const el = sec as HTMLElement
         if (window.scrollY >= el.offsetTop - navH) current = el.id
       })
       navLinks.forEach((a) => {
-        const active = a.getAttribute('href') === `#${current}`
-        a.classList.toggle('active', active)
+        a.classList.toggle('active', a.getAttribute('href') === `#${current}`)
       })
     }
 
@@ -173,40 +143,25 @@ export function useCodoSiteEffects() {
       if (scrollTick) return
       scrollTick = requestAnimationFrame(() => {
         scrollTick = 0
-        const y = window.scrollY
-        const delta = Math.abs(y - lastScrollY)
-        lastScrollY = y
-        syncNavPadding()
+        const delta = Math.abs(window.scrollY - lastScrollY)
+        lastScrollY = window.scrollY
+        syncNav()
         if (delta > 2) updateActiveNav()
       })
     }
 
-    const onResize = () => {
-      syncNavPadding()
-    }
-
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onResize, { passive: true })
-    syncNavPadding()
+    window.addEventListener('resize', syncNav, { passive: true })
+    syncNav()
     updateActiveNav()
 
     return () => {
-      document.removeEventListener('mousemove', onMove)
-      cancelAnimationFrame(ringRaf.current)
       cancelAnimationFrame(scrollTick)
       document.removeEventListener('click', onAnchorClick)
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onResize)
-      reveals.forEach((r) => io.unobserve(r))
-      io.disconnect()
-      if (useCustomCursor) {
-        hoverEls.forEach((el) => {
-          el.removeEventListener('mouseenter', enlarge)
-          el.removeEventListener('mouseleave', shrink)
-        })
-      }
+      window.removeEventListener('resize', syncNav)
       statsObserver.disconnect()
-      document.body.classList.remove('no-custom-cursor')
+      navbar.classList.remove('nav-shell--glass')
     }
-  }, [])
+  }, [location.pathname])
 }
