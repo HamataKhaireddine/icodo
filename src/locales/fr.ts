@@ -146,7 +146,7 @@ export const fr = {
     items: [
       {
         title: 'Sprint de découverte',
-        range: 'À partir de $8,000',
+        range: 'À partir de $5,000',
         duration: '2 semaines',
         desc: 'Validez votre idée, définissez le périmètre et repartez avec une feuille de route exécutable — avec ou sans nous.',
         includes: [
@@ -159,7 +159,7 @@ export const fr = {
       },
       {
         title: 'Développement MVP',
-        range: '$50,000 – $120,000',
+        range: '$15,000 – $30,000',
         duration: '12–20 semaines',
         desc: 'Design et ingénierie de bout en bout pour lancer un produit prêt pour la production que vos utilisateurs et investisseurs peuvent évaluer.',
         includes: [
@@ -172,7 +172,7 @@ export const fr = {
       },
       {
         title: 'Partenariat de croissance',
-        range: 'À partir de $25,000 / mois',
+        range: 'À partir de $10,000 / mois',
         duration: 'En continu',
         desc: 'Une équipe senior dédiée intégrée à la vôtre — livraison de fonctionnalités, maintien de la qualité et évolution de la plateforme.',
         includes: [

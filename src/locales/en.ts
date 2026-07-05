@@ -151,7 +151,7 @@ export const en = {
     items: [
       {
         title: 'Discovery Sprint',
-        range: 'From $8,000',
+        range: 'From $5,000',
         duration: '2 weeks',
         desc: 'Validate your idea, define scope, and leave with a roadmap you can execute — with or without us.',
         includes: [
@@ -164,7 +164,7 @@ export const en = {
       },
       {
         title: 'MVP Build',
-        range: '$50,000 – $120,000',
+        range: '$15,000 – $30,000',
         duration: '12–20 weeks',
         desc: 'End-to-end design and engineering to launch a production-ready product your users and investors can evaluate.',
         includes: [
@@ -177,7 +177,7 @@ export const en = {
       },
       {
         title: 'Scale Partnership',
-        range: 'From $25,000 / mo',
+        range: 'From $10,000 / mo',
         duration: 'Ongoing',
         desc: 'A dedicated senior team embedded with yours — shipping features, maintaining quality, and evolving the platform.',
         includes: [

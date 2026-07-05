@@ -146,7 +146,7 @@ export const ja = {
     items: [
       {
         title: 'ディスカバリースプリント',
-        range: 'From $8,000',
+        range: 'From $5,000',
         duration: '2週間',
         desc: 'アイデアを検証し、スコープを定義し、私たちと一緒でも単独でも実行できるロードマップを持ち帰ります。',
         includes: [
@@ -159,7 +159,7 @@ export const ja = {
       },
       {
         title: 'MVPビルド',
-        range: '$50,000 – $120,000',
+        range: '$15,000 – $30,000',
         duration: '12–20週間',
         desc: 'ユーザーと投資家が評価できる本番対応プロダクトをローンチするための、エンドツーエンドのデザインとエンジニアリング。',
         includes: [
@@ -172,7 +172,7 @@ export const ja = {
       },
       {
         title: 'スケールパートナーシップ',
-        range: 'From $25,000 / mo',
+        range: 'From $10,000 / mo',
         duration: '継続',
         desc: '御社チームに組み込まれた専任シニアチーム — 機能のリリース、品質維持、プラットフォームの進化を担います。',
         includes: [
