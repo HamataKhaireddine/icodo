@@ -20,6 +20,7 @@ export const ar = {
     useAuto: 'استخدام التلقائي (حسب الموقع)',
   },
   nav: {
+    skipToContent: 'انتقل إلى المحتوى',
     services: 'الخدمات',
     process: 'المنهجية',
     caseStudies: 'دراسات الحالة',
@@ -46,6 +47,8 @@ export const ar = {
       'رؤى حول بناء SaaS ومنتجات الذكاء الاصطناعي وبرمجيات المؤسسات من فريق ICODO.',
   },
   hero: {
+    videoPause: 'إيقاف فيديو الخلفية مؤقتًا',
+    videoPlay: 'تشغيل فيديو الخلفية',
     eyebrow: 'تطوير المنتجات الرقمية وحلول الذكاء الاصطناعي',
     titleBefore: 'نبني',
     titleAccent: 'منتجات رقمية',

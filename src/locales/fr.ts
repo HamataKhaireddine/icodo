@@ -20,6 +20,7 @@ export const fr = {
     useAuto: 'Automatique (selon la localisation)',
   },
   nav: {
+    skipToContent: 'Aller au contenu',
     services: 'Services',
     process: 'Processus',
     caseStudies: 'Études de cas',
@@ -46,6 +47,8 @@ export const fr = {
       'Réflexions sur la création de SaaS, de produits IA et de logiciels d’entreprise par l’équipe ICODO.',
   },
   hero: {
+    videoPause: 'Mettre en pause la vidéo d’arrière-plan',
+    videoPlay: 'Lire la vidéo d’arrière-plan',
     eyebrow: 'Développement de produits numériques & solutions IA',
     titleBefore: 'Nous créons des',
     titleAccent: 'produits numériques',

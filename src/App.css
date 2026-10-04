@@ -547,3 +547,30 @@ html[lang^='ar'] body *::before,
 html[lang^='ar'] body *::after {
   font-family: 'Cairo', sans-serif !important;
 }
+
+/* Skip link (visible on keyboard focus only) */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  inset-inline-start: 8px;
+  z-index: 20000;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: none;
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+
+main:focus {
+  outline: none;
+}

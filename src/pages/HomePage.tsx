@@ -11,6 +11,8 @@ import { ProjectsSection } from '../components/ProjectsSection'
 import { BlogCard } from '../components/BlogCard'
 import { blogPosts } from '../data/blogPosts'
 import { SeoHead } from '../components/SeoHead'
+import { HomeHero } from '../components/HomeHero'
+import '../home-v2.css'
 import { SiteFooter } from '../components/SiteLayout'
 import { caseStudies } from '../data/caseStudies'
 
@@ -37,8 +39,19 @@ export default function HomePage() {
     suffix: string
     label: string
   }[]
-  const heroPillars = t('hero.pillars', { returnObjects: true }) as string[]
   const phoneNumbers = t('contact.phoneNumbers', { returnObjects: true }) as { tel: string; display: string }[]
+
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.add('is-home')
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')
+    const prevTheme = meta?.content
+    if (meta) meta.content = '#05070d'
+    return () => {
+      root.classList.remove('is-home')
+      if (meta && prevTheme) meta.content = prevTheme
+    }
+  }, [])
 
   useEffect(() => {
     const hash = window.location.hash
@@ -56,116 +69,41 @@ export default function HomePage() {
   return (
     <>
       <SeoHead title={t('seo.homeTitle')} description={t('seo.homeDescription')} path="/" />
+      <div className="home-v2">
 
-      <section id="hero" className="hero-premium">
-        <div className="hero-premium__backdrop" aria-hidden>
-          <div className="hero-premium__mesh" />
-          <div className="hero-premium__orb hero-premium__orb--1" />
-          <div className="hero-premium__orb hero-premium__orb--2" />
-          <div className="hero-premium__orb hero-premium__orb--3" />
-        </div>
+      <HomeHero />
 
-        <div className="hero-premium__inner">
-          <div className="hero-premium__grid">
-            <div className="hero-premium__copy">
-              <div className="hero-premium__eyebrow reveal">{t('hero.eyebrow')}</div>
-              <h1 className="hero-premium__title reveal">
-                {t('hero.titleBefore')}{' '}
-                <span className="hero-premium__title-accent">{t('hero.titleAccent')}</span>
-                <br />
-                {t('hero.titleAfter')}
-              </h1>
-              <p className="hero-premium__sub reveal reveal-delay-1">{t('hero.sub')}</p>
-
-              <div className="hero-premium__pillars reveal reveal-delay-1">
-                {heroPillars.map((pillar, i) => (
-                  <span key={i} className="hero-premium__pillar">
-                    {pillar}
-                  </span>
-                ))}
+      <section className="home-trust" aria-labelledby="home-trust-title">
+        <div className="section-inner">
+          <h2 id="home-trust-title" className="home-trust__label">
+            {t('clients.label')}
+          </h2>
+          <ul className="home-trust__logos">
+            {clientItems.map((client) => (
+              <li key={client.name} className="home-trust__logo">
+                <UiIcon id={client.icon} />
+                {client.name}
+              </li>
+            ))}
+          </ul>
+          <ul className="home-trust__proof">
+            <li>{t('hero.trustResponse')}</li>
+            <li>{t('hero.trustProjects')}</li>
+            <li>{t('hero.trustExperience')}</li>
+          </ul>
+          <dl className="home-trust__stats">
+            {stats.map((stat) => (
+              <div key={stat.label} className="home-trust__stat">
+                <dt className="home-trust__stat-label">{stat.label}</dt>
+                <dd className="home-trust__stat-value">
+                  {stat.value}
+                  {stat.suffix}
+                </dd>
               </div>
-
-              <div className="hero-premium__actions reveal reveal-delay-2">
-                <Link to="/contact" className="btn btn--primary btn--lg">
-                  {t('hero.ctaPrimary')}
-                </Link>
-                <a href="#case-studies" className="btn btn--secondary btn--lg">
-                  {t('hero.ctaSecondary')}
-                </a>
-              </div>
-
-              <div className="hero-premium__trust reveal reveal-delay-2">
-                <span className="hero-premium__trust-item">
-                  <span className="hero-premium__trust-dot" aria-hidden />
-                  {t('hero.trustResponse')}
-                </span>
-                <span className="hero-premium__trust-item">
-                  <span className="hero-premium__trust-dot" aria-hidden />
-                  {t('hero.trustProjects')}
-                </span>
-                <span className="hero-premium__trust-item">
-                  <span className="hero-premium__trust-dot" aria-hidden />
-                  {t('hero.trustExperience')}
-                </span>
-              </div>
-            </div>
-
-            <div className="hero-premium__visual reveal reveal-delay-2" aria-hidden>
-              <div className="hero-showcase">
-                <div className="hero-showcase__glow" />
-                <div className="hero-showcase__frame hero-showcase__frame--main">
-                  <div className="hero-showcase__chrome">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <img src="/portfolio/assam.png" alt="" width={640} height={360} loading="eager" />
-                </div>
-                <div className="hero-showcase__frame hero-showcase__frame--secondary">
-                  <div className="hero-showcase__chrome">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <img src="/portfolio/maan.png" alt="" width={480} height={270} loading="eager" />
-                </div>
-                <div className="hero-showcase__stat">
-                  <span className="hero-showcase__stat-value">50+</span>
-                  <span className="hero-showcase__stat-label">Projects shipped</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="hero-premium__clients reveal reveal-delay-3">
-            <span className="hero-premium__clients-label">{t('hero.clientsLabel')}</span>
-            <div className="hero-premium__logos">
-              {clientItems.map((client) => (
-                <span key={client.name} className="logo-chip logo-chip--hero">
-                  <UiIcon id={client.icon} />
-                  {client.name}
-                </span>
-              ))}
-            </div>
-          </div>
+            ))}
+          </dl>
         </div>
       </section>
-
-      <div className="stats-bar stats-bar--compact">
-        <div className="stats-bar__grid">
-          {stats.map((stat, i) => (
-            <div key={i} className={`stat-item reveal reveal-delay-${(i % 4) + 1}`}>
-              <div className="stat-item__num">
-                <span className="stat-num" data-count={stat.value}>
-                  0
-                </span>
-                {stat.suffix}
-              </div>
-              <div className="stat-item__label">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
 
       <section id="case-studies" className="section-block section-block--muted">
         <div className="section-inner">
@@ -277,22 +215,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="cta-founder section-block--muted">
-        <div className="section-inner cta-founder__grid">
-          <div className="cta-band__inner reveal" style={{ textAlign: 'start', margin: 0, maxWidth: 'none' }}>
-            <h2 className="cta-band__title" style={{ color: 'var(--text)' }}>
+      <section className="home-cta" aria-labelledby="home-cta-title">
+        <div className="section-inner">
+          <div className="home-cta__panel reveal">
+            <h2 id="home-cta-title" className="home-cta__title">
               {t('aboutPage.ctaTitle')}
             </h2>
-            <p className="cta-band__desc" style={{ color: 'var(--text-muted)' }}>
-              {t('aboutPage.ctaDesc')}
-            </p>
+            <p className="home-cta__desc">{t('aboutPage.ctaDesc')}</p>
             <Link to="/contact" className="btn btn--primary btn--lg">
               {t('nav.cta')}
             </Link>
           </div>
-          <div className="reveal reveal-delay-2">
-            <TeamSection compact />
-          </div>
+        </div>
+      </section>
+
+      <section id="leadership" className="section-block section-block--muted">
+        <div className="section-inner">
+          <TeamSection />
         </div>
       </section>
 
@@ -362,6 +301,7 @@ export default function HomePage() {
       </section>
 
       <SiteFooter />
+      </div>
     </>
   )
 }

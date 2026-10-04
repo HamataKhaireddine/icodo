@@ -8,10 +8,7 @@ export function StickyCta() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if (location.pathname !== '/') {
-      setVisible(false)
-      return
-    }
+    if (location.pathname !== '/') return
 
     const onScroll = () => {
       setVisible(window.scrollY > 480)

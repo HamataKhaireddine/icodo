@@ -25,6 +25,7 @@ export const en = {
     useAuto: 'Use automatic (by location)',
   },
   nav: {
+    skipToContent: 'Skip to content',
     services: 'Services',
     process: 'Process',
     caseStudies: 'Case Studies',
@@ -51,6 +52,8 @@ export const en = {
       'Insights on building SaaS, AI products, and enterprise software from the ICODO team.',
   },
   hero: {
+    videoPause: 'Pause background video',
+    videoPlay: 'Play background video',
     eyebrow: 'Digital Product Development & AI Solutions',
     titleBefore: 'We Build',
     titleAccent: 'Digital Products',

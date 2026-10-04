@@ -1,0 +1,418 @@
+/* ==========================================================================
+   ICODO homepage (v2) — dark premium surface that continues the hero.
+   Theme tokens are swapped only while the homepage is mounted (html.is-home),
+   so other routes keep their existing light theme.
+   ========================================================================== */
+
+html.is-home {
+  color-scheme: dark;
+
+  --color-ink: #05070d;
+  --color-surface: #05070d;
+  --color-accent: #22d3ee;
+  --palette-ink: #05070d;
+  --palette-surface: #05070d;
+  --accent: #22d3ee;
+
+  --bg: #05070d;
+  --bg-alt: #0a1020;
+  --bg-muted: #0a1020;
+  --bg-dark: #03050a;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-hover: rgba(255, 255, 255, 0.07);
+  --card: rgba(255, 255, 255, 0.04);
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.72);
+  --text-subtle: rgba(255, 255, 255, 0.5);
+  --text-on-dark: #ffffff;
+  --text-muted-on-dark: rgba(255, 255, 255, 0.72);
+  --gray: rgba(255, 255, 255, 0.72);
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(34, 211, 238, 0.32);
+  --brand-muted: rgba(37, 99, 235, 0.16);
+  --brand-border: rgba(96, 165, 250, 0.32);
+  --brand-accent-muted: rgba(34, 211, 238, 0.14);
+  --accent-glow: rgba(37, 99, 235, 0.2);
+  --accent-glow-strong: rgba(37, 99, 235, 0.38);
+  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-medium: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 18px 48px rgba(0, 0, 0, 0.45);
+  --shadow-strong: 0 24px 64px rgba(0, 0, 0, 0.55);
+  --site-max-width: 1180px;
+
+  background: #05070d;
+}
+
+html.is-home body {
+  background: #05070d;
+  color: #fff;
+}
+
+/* ---------- Header: transparent over the hero, dark glass after scroll ---------- */
+
+html.is-home .nav-shell {
+  background: transparent;
+}
+
+html.is-home .nav-pill {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html.is-home .nav-shell--glass .nav-pill {
+  background: rgba(5, 7, 13, 0.72);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+
+html.is-home .nav-links a {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+html.is-home .nav-links a:hover,
+html.is-home .nav-links a.active {
+  color: #fff;
+}
+
+html.is-home .brand-logo__word {
+  color: #fff;
+}
+
+html.is-home .brand-logo__bar {
+  background: linear-gradient(90deg, #2563eb, #22d3ee);
+}
+
+html.is-home .nav-menu-btn {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* ---------- Shared section rhythm ---------- */
+
+.home-v2 {
+  font-family: 'InterVar', 'Inter', 'Helvetica Neue', Arial, system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+[dir='rtl'] .home-v2 {
+  font-family: 'Cairo', 'Inter', system-ui, sans-serif;
+}
+
+.home-v2 section[id] {
+  scroll-margin-top: calc(var(--nav-height, 72px) + 8px);
+}
+
+.home-v2 .section-block {
+  background: var(--bg);
+}
+
+.home-v2 .section-block--muted {
+  background: var(--bg-alt);
+  border-block: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.home-v2 .section-inner {
+  max-width: 1180px;
+}
+
+.home-v2 .section-tag {
+  color: #9ec5ff;
+  background: rgba(37, 99, 235, 0.12);
+  border-color: rgba(96, 165, 250, 0.28);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+[dir='rtl'] .home-v2 .section-tag {
+  letter-spacing: 0;
+}
+
+.home-v2 .section-title {
+  color: #fff;
+  letter-spacing: -0.03em;
+}
+
+[dir='rtl'] .home-v2 .section-title {
+  letter-spacing: 0;
+}
+
+.home-v2 .section-desc {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Glass cards */
+.home-v2 .case-study-card,
+.home-v2 .solution-card,
+.home-v2 .engagement-card,
+.home-v2 .process-step,
+.home-v2 .testimonial-card,
+.home-v2 .why-card,
+.home-v2 .team-member-card,
+.home-v2 .projects-grid__card,
+.home-v2 .blog-card,
+.home-v2 .contact-form {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  color: #fff;
+}
+
+.home-v2 .case-study-card:hover,
+.home-v2 .solution-card:hover,
+.home-v2 .projects-grid__card:hover,
+.home-v2 .blog-card:hover {
+  border-color: rgba(34, 211, 238, 0.32);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+}
+
+.home-v2 .solution-card__icon,
+.home-v2 .why-card__icon {
+  color: #22d3ee;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.22);
+}
+
+.home-v2 .engagement-card--featured {
+  border-color: rgba(37, 99, 235, 0.6);
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.14), rgba(255, 255, 255, 0.03));
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25), 0 24px 60px rgba(37, 99, 235, 0.18);
+}
+
+.home-v2 .engagement-card__range {
+  color: #fff;
+}
+
+.home-v2 .case-study-card__category,
+.home-v2 .projects-grid__tag,
+.home-v2 .process-step__num {
+  color: #22d3ee;
+}
+
+.home-v2 .case-study-card__link,
+.home-v2 .projects-grid__link,
+.home-v2 .process-home-link a,
+.home-v2 .blog-home-more a {
+  color: #9ec5ff;
+}
+
+.home-v2 .btn--secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.home-v2 .btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Form controls on dark */
+.home-v2 .contact-form input,
+.home-v2 .contact-form select,
+.home-v2 .contact-form textarea {
+  background: rgba(5, 7, 13, 0.6);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.home-v2 .contact-form input::placeholder,
+.home-v2 .contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.home-v2 .contact-form select option {
+  background: #0a1020;
+  color: #fff;
+}
+
+.home-v2 .contact-form label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.home-v2 :focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+
+/* ---------- Trust strip + stats ---------- */
+
+.home-trust {
+  background: var(--bg);
+  padding: 8px var(--site-gutter) 56px;
+  text-align: center;
+}
+
+.home-trust__label {
+  margin: 0 0 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+[dir='rtl'] .home-trust__label {
+  letter-spacing: 0;
+}
+
+.home-trust__logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 28px;
+}
+
+.home-trust__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.home-trust__logo .ui-icon {
+  width: 16px;
+  height: 16px;
+  color: #22d3ee;
+  opacity: 0.85;
+}
+
+.home-trust__proof {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.home-trust__proof li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-trust__proof li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.7);
+}
+
+.home-trust__stats {
+  margin: 36px auto 0;
+  max-width: 920px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 768px) {
+  .home-trust__stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.home-trust__stat {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+  padding: 22px 16px;
+  background: #070a14;
+}
+
+.home-trust__stat-value {
+  margin: 0;
+  font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.home-trust__stat-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- Consultation CTA ---------- */
+
+.home-cta {
+  background: var(--bg);
+  padding: clamp(56px, 8vw, 96px) var(--site-gutter);
+}
+
+.home-cta__panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  max-width: 980px;
+  margin-inline: auto;
+  padding: clamp(36px, 6vw, 64px) clamp(22px, 5vw, 56px);
+  border-radius: 24px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 0%, rgba(37, 99, 235, 0.28), transparent 70%),
+    radial-gradient(ellipse 40% 60% at 85% 100%, rgba(34, 211, 238, 0.14), transparent 70%),
+    rgba(255, 255, 255, 0.03);
+}
+
+.home-cta__title {
+  margin: 0 0 12px;
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+[dir='rtl'] .home-cta__title {
+  letter-spacing: 0;
+}
+
+.home-cta__desc {
+  margin: 0 auto 28px;
+  max-width: 560px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ---------- Mobile menu on the dark homepage ---------- */
+
+html.is-home .mobile-nav-overlay,
+html.is-home .mobile-nav-panel {
+  background: #05070d;
+  color: #fff;
+}
+
+html.is-home .mobile-nav-link,
+html.is-home .mobile-nav-title,
+html.is-home .mobile-nav-close {
+  color: #fff;
+}
+
+/* Testimonial author row is a <footer>; neutralise the global footer surface inside cards */
+.home-v2 .testimonial-card__author {
+  background: transparent;
+  padding: 20px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
