@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from './LanguageSwitcher'
@@ -19,6 +19,16 @@ export function MobileNavMenu({
   id?: string
 }) {
   const { t } = useTranslation()
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const previouslyFocused = document.activeElement as HTMLElement | null
+    closeRef.current?.focus()
+    return () => {
+      previouslyFocused?.focus?.({ preventScroll: true })
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -41,7 +51,13 @@ export function MobileNavMenu({
   if (!open) return null
 
   const panel = (
-    <div className="mobile-nav-overlay" role="presentation">
+    <div
+      className="mobile-nav-overlay"
+      role="presentation"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+    >
       <div
         id={id}
         className="mobile-nav-panel"
@@ -53,6 +69,7 @@ export function MobileNavMenu({
           <span className="mobile-nav-title">{t('nav.menuTitle')}</span>
           <button
             type="button"
+            ref={closeRef}
             className="mobile-nav-close"
             onClick={onClose}
             aria-label={t('nav.menuCloseAria')}

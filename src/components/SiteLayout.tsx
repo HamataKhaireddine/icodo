@@ -23,22 +23,25 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`)
 
-  const mobileNavLinks = useMemo(
-    () => [
+  const mobileNavLinks = useMemo(() => {
+    const sectionHref = (id: string) => (isHome ? `#${id}` : `/#${id}`)
+    return [
       { href: sectionHref('services'), label: t('nav.services') },
       { href: sectionHref('engagement'), label: t('engagement.tag') },
       { href: sectionHref('process'), label: t('nav.process') },
       { href: sectionHref('case-studies'), label: t('nav.caseStudies') },
       { href: '/about', label: t('nav.about') },
-      { href: '/blog', label: t('nav.blog') },
-      { href: '/contact', label: t('nav.contact') },
-    ],
-    [t, isHome],
-  )
+      { href: isHome ? '#insights' : '/blog', label: t('nav.blog') },
+      { href: isHome ? '#contact' : '/contact', label: t('nav.contact') },
+    ]
+  }, [t, isHome])
 
-  useEffect(() => {
+  // Close the mobile menu when the route changes (state adjustment during render, no effect).
+  const [menuPath, setMenuPath] = useState(location.pathname)
+  if (menuPath !== location.pathname) {
+    setMenuPath(location.pathname)
     setMobileNavOpen(false)
-  }, [location.pathname])
+  }
 
   useEffect(() => {
     const handler = () => setDocumentLang(i18n.language)
@@ -51,6 +54,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <CodoIconSprite />
+      <a className="skip-link" href="#main-content">
+        {t('nav.skipToContent')}
+      </a>
 
       <header id="navbar" className="nav-shell">
         <div className="nav-pill">
@@ -76,14 +82,22 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </Link>
             </li>
             <li>
-              <Link to="/blog" className={location.pathname.startsWith('/blog') ? 'active' : undefined}>
-                {t('nav.blog')}
-              </Link>
+              {isHome ? (
+                <a href="#insights">{t('nav.blog')}</a>
+              ) : (
+                <Link to="/blog" className={location.pathname.startsWith('/blog') ? 'active' : undefined}>
+                  {t('nav.blog')}
+                </Link>
+              )}
             </li>
             <li>
-              <Link to="/contact" className={location.pathname === '/contact' ? 'active' : undefined}>
-                {t('nav.contact')}
-              </Link>
+              {isHome ? (
+                <a href="#contact">{t('nav.contact')}</a>
+              ) : (
+                <Link to="/contact" className={location.pathname === '/contact' ? 'active' : undefined}>
+                  {t('nav.contact')}
+                </Link>
+              )}
             </li>
           </ul>
           <div className="nav-end">
@@ -115,7 +129,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         id="codo-mobile-nav"
       />
 
-      <main>{children}</main>
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
       <StickyCta />
     </>
   )

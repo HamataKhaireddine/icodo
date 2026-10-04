@@ -20,6 +20,7 @@ export const ja = {
     useAuto: '自動（所在地に基づく）',
   },
   nav: {
+    skipToContent: 'コンテンツへスキップ',
     services: 'サービス',
     process: 'プロセス',
     caseStudies: '事例紹介',
@@ -46,6 +47,8 @@ export const ja = {
       'SaaS、AIプロダクト、エンタープライズソフトウェアの構築に関するインサイト — ICODOチームより。',
   },
   hero: {
+    videoPause: '背景動画を一時停止',
+    videoPlay: '背景動画を再生',
     eyebrow: 'デジタルプロダクト開発 & AIソリューション',
     titleBefore: '私たちは',
     titleAccent: 'デジタルプロダクト',
